@@ -18,3 +18,9 @@ import './commands'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+
+// percy.io, the page under test, throws "Could not find module @sentry/browser"
+// on load. That's the site's own error, so don't let it fail the spec.
+Cypress.on('uncaught:exception', (err) => {
+  if (err.message.includes('@sentry/browser')) return false
+})
